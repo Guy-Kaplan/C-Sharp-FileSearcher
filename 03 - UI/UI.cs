@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+using System;
 
 namespace JohnBryce
 {
@@ -26,7 +25,7 @@ namespace JohnBryce
             Console.WriteLine("Press Enter to continue...");
         }
 
-        public void DisplayResultsOfOption1(string UserFileName) // file name only
+        public void DisplayResultsOfFirstOption(string UserFileName) // file name only
         {
             DisplaySearchStartMsg();
             FileSearcher fs = new FileSearcher();
@@ -35,7 +34,7 @@ namespace JohnBryce
             DisplaySearchEndMsg();
         }
 
-        public void DisplayResultsOfOption2(string UserFileName, string UserRootDirectory) // file name + directory
+        public void DisplayResultsOfSecondOption(string UserFileName, string UserRootDirectory) // file name + directory
         {
             DisplaySearchStartMsg();
             FileSearcher fs = new FileSearcher();
