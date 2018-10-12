@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace JohnBryce
@@ -66,6 +66,17 @@ namespace JohnBryce
                 return true;
             }
             return false;
+        }
+
+        public string GetUserMenuInput()
+        {
+            string UserMenuInput = Console.ReadLine();
+            while (IsMenuInputWrong(UserMenuInput))
+            {
+                DisplayMenuInputErrorMsg();
+                UserMenuInput = Console.ReadLine();
+            }
+            return UserMenuInput;
         }
     }
 }
