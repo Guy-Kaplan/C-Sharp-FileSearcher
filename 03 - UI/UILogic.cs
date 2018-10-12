@@ -1,69 +1,73 @@
-﻿using System;
-using System.IO;
+using System;
 
 namespace JohnBryce
 {
     public class UILogic
     {
+        SearchQueriesLogic logic = new SearchQueriesLogic();
+        UI ui = new UI();
+        Menu menu = new Menu();
+        bool IsProgramNotEnding = true;
+        string UserMenuInput; // 1-3
+        string UserFileName;
+        string UserRootDirectory;
+        const string fileOnlyOption = "1";
+        const string fileAndDirectoryOption = "2";
 
         public void StartProgram()
         {
-            UI ui = new UI();
-            Menu menu = new Menu();
-            bool IsProgramNotEnding = true;
-            string UserMenuInput; // 1-3
-            string UserFileName; // file name
-            string UserRootDirectory; // root directory
             while (IsProgramNotEnding)
             {
                 menu.DisplayMenu();
-                UserMenuInput = Console.ReadLine(); // need 1-3
-                while (menu.IsMenuInputWrong(UserMenuInput)) // check menu input
-                {
-                    menu.DisplayMenuInputErrorMsg();
-                    UserMenuInput = Console.ReadLine(); // regain menu option choice
-                }
+                UserMenuInput = menu.GetUserMenuInput(); // need 1-3
                 Console.WriteLine();
-                if (UserMenuInput == "1") // file name only
+                if (UserMenuInput == fileOnlyOption) // option 1
                 {
                     menu.DisplayFileNameInputMsg();
-                    UserFileName = Console.ReadLine(); // get file name
-                    while (menu.IsFileNameInputWrong(UserFileName)) // check input
-                    {
-                        menu.DisplayFileNameInputErrorMsg();
-                        UserFileName = Console.ReadLine(); // regain file name
-                    }
+                    UserFileName = GetUserFileName();
                     // display search results:
-                    ui.DisplayResultsOfOption1(UserFileName);
+                    ui.DisplayResultsOfFirstOption(UserFileName);
                     Console.ReadLine();
-                    Console.Clear(); // clear screen
+                    Console.Clear();
                 }
-                else if (UserMenuInput == "2") // file name + root directory
+                else if (UserMenuInput == fileAndDirectoryOption) // option 2
                 {
                     menu.DisplayFileNameInputMsg();
-                    UserFileName = Console.ReadLine(); // get file name
-                    while (menu.IsFileNameInputWrong(UserFileName)) // check input
-                    {
-                        menu.DisplayFileNameInputErrorMsg();
-                        UserFileName = Console.ReadLine(); // regain file name
-                    }
+                    UserFileName = GetUserFileName();
                     menu.DisplayRootDirectoryInputMsg();
-                    UserRootDirectory = Console.ReadLine(); // get root directory
-                    while (menu.IsRootDirectoryInputWrong(UserRootDirectory)) // check input
-                    {
-                        menu.DisplayRootDirectoryInputErrorMsg();
-                        UserRootDirectory = Console.ReadLine(); // regain root directory
-                    }
+                    UserRootDirectory = GetUserRootDirectory();
                     // display search results:
-                    ui.DisplayResultsOfOption2(UserFileName, UserRootDirectory);
+                    ui.DisplayResultsOfSecondOption(UserFileName, UserRootDirectory);
                     Console.ReadLine();
-                    Console.Clear(); // clear screen
+                    Console.Clear();
                 }
-                else // UserMenuInput == "3" // user chose to exit
+                else // option 3 - user chose to exit
                 {
                     IsProgramNotEnding = false; // Exit program
                 }
             }
+        }
+
+        private string GetUserFileName()
+        {
+            string UserFileName = Console.ReadLine();
+            while (menu.IsFileNameInputWrong(UserFileName))
+            {
+                menu.DisplayFileNameInputErrorMsg();
+                UserFileName = Console.ReadLine();
+            }
+            return UserFileName;
+        }
+
+        private string GetUserRootDirectory()
+        {
+            string UserRootDirectory = Console.ReadLine();
+            while (menu.IsRootDirectoryInputWrong(UserRootDirectory))
+            {
+                menu.DisplayRootDirectoryInputErrorMsg();
+                UserRootDirectory = Console.ReadLine();
+            }
+            return UserRootDirectory;
         }
     }
 }
