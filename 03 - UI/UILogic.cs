@@ -42,17 +42,17 @@ namespace JohnBryce
                 {
                     menu.DisplayFileNameInputMsg();
                     UserFileName = Console.ReadLine(); // get file name
-                    while (menu.IsFileNameInputWrong(UserFileName))
+                    while (menu.IsFileNameInputWrong(UserFileName)) // check input
                     {
                         menu.DisplayFileNameInputErrorMsg();
                         UserFileName = Console.ReadLine(); // regain file name
                     }
                     menu.DisplayRootDirectoryInputMsg();
-                    UserRootDirectory = Console.ReadLine(); // root directory
-                    while (menu.IsRootDirectoryInputWrong(UserRootDirectory))
+                    UserRootDirectory = Console.ReadLine(); // get root directory
+                    while (menu.IsRootDirectoryInputWrong(UserRootDirectory)) // check input
                     {
                         menu.DisplayRootDirectoryInputErrorMsg();
-                        UserRootDirectory = Console.ReadLine(); // file name
+                        UserRootDirectory = Console.ReadLine(); // regain root directory
                     }
                     // display search results:
                     ui.DisplayResultsOfOption2(UserFileName, UserRootDirectory);
